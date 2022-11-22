@@ -8,3 +8,11 @@ cd "nome do projeto"
 
 
 para rodar o projeto: npm run start:dev
+
+yarn add class-validaor  
+ou para npm
+ npm i --save class-validator class-transformer
+
+ yarn add @nestjs/swagger
+
+ 
