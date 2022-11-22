@@ -14,6 +14,10 @@ export class UserService {
 
    //return Promise.revolce(userEntity)  outra forma de fazer caso eu não tenha o async em cima
    }
+
+   async updateUser(user: UserDto): Promise<IUserEntity> {
+    
+   }
 }
 
 // foi feito uma interface IUserEntity, mas o usuário não pode criar o próprio id
