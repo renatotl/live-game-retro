@@ -1,9 +1,7 @@
-export interface IGames {
-  id: number;
-  price: number;
-  data: number;
-  favorite: boolean;
-  img: string;
-  comment: string;
-  name: string;
+import { gameDto } from "../service/dto/gameInput";
+
+
+export interface IGames extends gameDto {
+  id: string;// eu tinha começado com number. mas deu erro. imagino que o randoUUID deve só aceitar string
+
 }
