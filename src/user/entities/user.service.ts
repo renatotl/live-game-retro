@@ -31,7 +31,15 @@ export class UserService {
     const updatedUser = this.users.find((user) => user.id === userData.id);
     return updatedUser;
   }
+
+  // deletar um usuário
+  async deleteUser(userData:PartialUserDto ): Promise<IUserEntity> {
+ 
+
+    
+  }
 }
+
 
 // foi feito uma interface IUserEntity, mas o usuário não pode criar o próprio id
 // foi feito um class UserDto sem o id e importado pra cá
