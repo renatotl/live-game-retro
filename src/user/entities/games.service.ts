@@ -31,7 +31,7 @@ export class GameService {
 
    // deletar um usuário
    async deleteGame(gameData:PartialGameDto ): Promise<IGamesEntity> {
- 
+   
 
 
 }

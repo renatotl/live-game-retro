@@ -15,4 +15,7 @@ ou para npm
 
  yarn add @nestjs/swagger
 
- 
+
+
+ npm install prisma --save-dev: intalando o PRISMA
+
