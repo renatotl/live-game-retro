@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'; // yarn add @nestjs/swagger
 import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
 
-export class gameDto {
+export class GameDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
