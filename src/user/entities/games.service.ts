@@ -1,17 +1,17 @@
 import { GameDto } from '../service/dto/gameInput';
-import { IGames } from './games.entity';
+import { IGamesEntity } from './games.entity';
 import { randomUUID } from 'crypto';
 import { PartialGameDto } from '../service/dto/partialGameInput.Dto';
 
 export class GameService {
-  private games: IGames[] = []; // uma lista e iniciand como vazio
+  private games: IGamesEntity[] = []; // uma lista e iniciand como vazio
 
-  async createGame(game: GameDto): Promise<IGames> {
+  async createGame(game: GameDto): Promise<IGamesEntity> {
     const gameEntity = { ...game, id: randomUUID() };
     this.games.push(gameEntity);
     return gameEntity;
   }
-  async updateGame(gameData: PartialGameDto): Promise<IGames> {
+  async updateGame(gameData: PartialGameDto): Promise<IGamesEntity> {
     // faz um map em users ( usuário criado)
     this.games.map((game, index) => {
       // pegando o user eo index
@@ -28,6 +28,14 @@ export class GameService {
     const updatedGame = this.games.find((game) => game.id === gameData.id);
     return updatedGame;
   }
+
+   // deletar um usuário
+   async deleteGame(gameData:PartialGameDto ): Promise<IGamesEntity> {
+ 
+
+
+}
+
 }
 
 
