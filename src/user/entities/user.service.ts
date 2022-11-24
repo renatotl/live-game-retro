@@ -16,6 +16,14 @@ export class UserService {
     //return Promise.revolce(userEntity)  outra forma de fazer caso eu não tenha o async em cima
   }
 
+  async getUserById(userId: string): Promise<IUserEntity>{
+    const existUser = this.users.find((user) => user.id === userId)
+    if(!existUser){
+      throw new Error("User não encontrado")
+    }
+    return existUser
+  }
+
   async updateUser(userData: PartialUserDto): Promise<IUserEntity> {
     // retorna 1 usuário
 
