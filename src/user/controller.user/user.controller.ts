@@ -67,8 +67,18 @@ export class UserController {
     }
   }
 
-  @Delete()
-  deleteUser() {
-    return this.serviceUser;
+  // famos receber por param o id então vamos para a propriedade para dentro do decorator delete
+  @Delete(':id')// esse Param vai pegar o 'id'
+ async deleteUserById(@Param('id') userId: string): Promise<string> {// promise de string
+    try {
+      const userIdDeleted = await this.serviceUser.deleteUserById(userId);
+      if(userIdDeleted){
+        return "usuário deletado com sucesso"
+      }else {
+        return "Usuário não encontrado"
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
