@@ -16,8 +16,15 @@ ou para npm
  yarn add @nestjs/swagger
 
 
-
+//marcos
  npm install prisma --save-dev: intalando o PRISMA
 
  npm install class-transformer
 
+//leo
+yarn add prisma -D:devDependence
+//leo
+yarn add @prisma/client
+
+// leo 
+npx prisma init: criou o arquivo .env e a pasta prisma
