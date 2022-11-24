@@ -28,6 +28,15 @@ export class UserController {
     return await this.serviceUser.getAllUsers(); // esse ultime getAllUsers() é a função do banco
   }
 
+  @Get(':id') //esse cara colocamos ese parametro dentor do @Get porque famos receber por param
+  async getUserById(@Param() userId: string): Promise<IUserEntity> {
+    try {
+      return await this.serviceUser.getUserById(userId);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   @Post() // o body eu vou querer '{}" desestruturado do tipo UserDto
   async createUser(
     @Body() { cpf, email, password, name, role }: UserDto,
@@ -46,17 +55,16 @@ export class UserController {
     }
   }
 
-
-  // parch se não existir no bd o patch deve incerir 
+  // parch se não existir no bd o patch deve incerir
   //ele atualiza os dados mesmo que seja um campo só
-  @Patch(":id")//Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
+  @Patch() //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
   // o Body diz que o userData tem que ter o id
- async updateUser(@Body() userData: PartialUserDto): Promise<IUserEntity> {
-  try { 
-    return this.serviceUser.updateUser(userData)
-  } catch (err) {
-    console.log(err);
-  }
+  async updateUser(@Body() userData: PartialUserDto): Promise<IUserEntity> {
+    try {
+      return this.serviceUser.updateUser(userData);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   @Delete()
