@@ -5,7 +5,8 @@ import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
 export class UserService {
   private users: IUserEntity[] = []; // uma lista e iniciand como vazio
   // para criar um usuário vou precisar receber um user e vamos retornar uma promise da entitade que criamos
-  async createUser(user: UserDto): Promise<IUserEntity> {
+  async createUser(user: UserDto): Promise<IUserEntity> { // retorna 1 usuário
+
     // recebe tudo do user mais um id gerado pelo node
     const userEntity = { ...user, id: randomUUID() };
     this.users.push(userEntity); // recebe o user como parametro e coloca na lista users
@@ -14,7 +15,8 @@ export class UserService {
     //return Promise.revolce(userEntity)  outra forma de fazer caso eu não tenha o async em cima
   }
 
-  async updateUser(userData: PartialUserDto): Promise<IUserEntity> {
+  async updateUser(userData: PartialUserDto): Promise<IUserEntity> {// retorna 1 usuário 
+
     // faz um map em users ( usuário criado)
     this.users.map((user, index) => {
       // pegando o user eo index
@@ -31,6 +33,14 @@ export class UserService {
     const updatedUser = this.users.find((user) => user.id === userData.id);
     return updatedUser;
   }
+
+/// Promise<IUserEntity[] como eu quero mais de um usuário vou receber uma lista de users
+  async getAllUsers(): Promise<IUserEntity[]>{
+    
+    return this.users
+
+  }
+
 
   // deletar um usuário
   async deleteUser(userData:PartialUserDto ): Promise<IUserEntity> {
