@@ -11,6 +11,7 @@ import { get } from 'http';
 import { IUserEntity } from '../entities/user.entity';
 
 import { UserService } from '../entities/user.service';
+import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
 
 import { UserDto } from '../service/dto/userInput';
 
@@ -45,9 +46,17 @@ export class UserController {
     }
   }
 
-  @Patch()
-  updateUser() {
-    return this.serviceUser;
+
+  // parch se não existir no bd o patch deve incerir 
+  //ele atualiza os dados mesmo que seja um campo só
+  @Patch(":id")//Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
+  // o Body diz que o userData tem que ter o id
+ async updateUser(@Body() userData: PartialUserDto): Promise<IUserEntity> {
+  try { 
+    return this.serviceUser.updateUser(userData)
+  } catch (err) {
+    console.log(err);
+  }
   }
 
   @Delete()
