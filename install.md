@@ -19,3 +19,5 @@ ou para npm
 
  npm install prisma --save-dev: intalando o PRISMA
 
+ npm install class-transformer
+

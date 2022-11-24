@@ -5,7 +5,8 @@ import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
 export class UserService {
   private users: IUserEntity[] = []; // uma lista e iniciand como vazio
   // para criar um usuário vou precisar receber um user e vamos retornar uma promise da entitade que criamos
-  async createUser(user: UserDto): Promise<IUserEntity> { // retorna 1 usuário
+  async createUser(user: UserDto): Promise<IUserEntity> {
+    // retorna 1 usuário
 
     // recebe tudo do user mais um id gerado pelo node
     const userEntity = { ...user, id: randomUUID() };
@@ -15,7 +16,8 @@ export class UserService {
     //return Promise.revolce(userEntity)  outra forma de fazer caso eu não tenha o async em cima
   }
 
-  async updateUser(userData: PartialUserDto): Promise<IUserEntity> {// retorna 1 usuário 
+  async updateUser(userData: PartialUserDto): Promise<IUserEntity> {
+    // retorna 1 usuário
 
     // faz um map em users ( usuário criado)
     this.users.map((user, index) => {
@@ -34,24 +36,25 @@ export class UserService {
     return updatedUser;
   }
 
-/// Promise<IUserEntity[] como eu quero mais de um usuário vou receber uma lista de users
-  async getAllUsers(): Promise<IUserEntity[]>{
-    
-    return this.users
-
+  /// Promise<IUserEntity[] como eu quero mais de um usuário vou receber uma lista de users
+  async getAllUsers(): Promise<IUserEntity[]> {
+    return this.users;
   }
-
 
   // deletar um usuário
-  async deleteUser(userData:PartialUserDto ): Promise<IUserEntity> {
- 
-
-
+  async deleteUserById(userId: string): Promise<Boolean> {
+    const existUser = this.users.find((user) => user.id === userId);
+    if (!existUser) {
+      return false;
+    }
+    this.users.map((user, index) => {
+      if (user.id === userId) {
+        this.users.splice(index, 1);
+      }
+    });
+    return true;
   }
-
-  
 }
-
 
 // foi feito uma interface IUserEntity, mas o usuário não pode criar o próprio id
 // foi feito um class UserDto sem o id e importado pra cá

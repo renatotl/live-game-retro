@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
+import { UserController } from './user/controller.user/user.controller';
+import { GameService } from './user/entities/games.service';
+import { UserService } from './user/entities/user.service';
+import { GameController } from './user/game.controller/game.controller';
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
 
@@ -15,6 +19,11 @@ import { Module } from '@nestjs/common';
   // uma cass dentro de outra
 })
 */
-@Module({})
+
+// o Module é como a nossa FACTORY deposi que criamos o controller e service precisamos montar aqui
+@Module({
+  controllers: [UserController, GameController ],
+  providers: [UserService, GameService ]
+})
 export class AppModule {}
 // o appModule que junto todo mundo
