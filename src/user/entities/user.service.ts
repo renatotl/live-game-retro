@@ -9,7 +9,7 @@ export class UserService {
     // retorna 1 usuário
 
     // recebe tudo do user mais um id gerado pelo node
-    const userEntity = { ...user, id: randomUUID() };
+    const userEntity = { ...user, id: randomUUID() };// createAt: Date.now()// essa função vem do schema.prisma e retorna quando foi criado
     this.users.push(userEntity); // recebe o user como parametro e coloca na lista users
     return userEntity;
 

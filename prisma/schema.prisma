@@ -1,11 +1,28 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// este cara vai prover que é a lib
 generator client {
   provider = "prisma-client-js"
 }
-
+// banco com qquem ele vai conversar 
 datasource db {
-  provider = "postgresql"
+  provider = "postgresql"// se fosse um Sqlite a jente troca aqui
   url      = env("DATABASE_URL")
 }
+
+
+// não são decorator e sim flags. 
+// recebe um id e é único
+model User {
+  id String @id @unique
+  name String
+  email String @unique
+  password String
+  cpf String 
+  role String
+  //campos que não vão pra aplicação
+  createAt DateTime @default(now())// saber quando o dado foi criado
+  updateAt DateTime @updatedAt// pra saber quando foi atualizado
+}
+// extenção prisma par visualisar

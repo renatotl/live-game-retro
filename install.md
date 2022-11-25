@@ -28,3 +28,11 @@ yarn add @prisma/client
 
 // leo 
 npx prisma init: criou o arquivo .env e a pasta prisma
+=========
+npx prisma generate
+
+depois de fazer o banco no railway:acabei usando o Render
+npx prisma migrate dev
+
+npx prisma db push
+=======
