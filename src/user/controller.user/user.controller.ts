@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   Get,
   Post,
@@ -6,7 +7,9 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 
 import { IUserEntity } from '../entities/user.entity';
 
@@ -40,18 +43,23 @@ export class UserController {
   @Post() // o body eu vou querer '{}" desestruturado do tipo UserDto
   async createUser(
     @Body() { cpf, email, password, name, role }: UserDto,
-  ): Promise<IUserEntity> {
+    @Res() response: Response,
+  ): Promise<void> {
+    // de IUserEntity troquie para void porque não tem return
     // se algo pode dar errado vai da errado. clen code
     try {
-      return await this.serviceUser.createUser({
+      const result = await this.serviceUser.createUser({
         cpf,
         email,
         password,
         name,
         role,
       });
+
+      response.status(201).send(result);
     } catch (err) {
       console.log(err);
+      throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
 
@@ -68,14 +76,15 @@ export class UserController {
   }
 
   // famos receber por param o id então vamos para a propriedade para dentro do decorator delete
-  @Delete(':id')// esse Param vai pegar o 'id'
- async deleteUserById(@Param('id') userId: string): Promise<string> {// promise de string
+  @Delete(':id') // esse Param vai pegar o 'id'
+  async deleteUserById(@Param('id') userId: string): Promise<string> {
+    // promise de string
     try {
       const userIdDeleted = await this.serviceUser.deleteUserById(userId);
-      if(userIdDeleted){
-        return "usuário deletado com sucesso"
-      }else {
-        return "Usuário não encontrado"
+      if (userIdDeleted) {
+        return 'usuário deletado com sucesso';
+      } else {
+        return 'Usuário não encontrado';
       }
     } catch (err) {
       console.log(err);
