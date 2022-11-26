@@ -11,7 +11,7 @@ import { GameService } from "../entities/games.service";
 import { PartialGameDto } from "../service/dto/partialGameInput.Dto"
 
 
-@Controller()
+@Controller('games')
 export class GameController {
 
     constructor( private serviceGame: GameService){

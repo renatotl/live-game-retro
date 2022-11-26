@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { get } from 'http';
+
 import { IUserEntity } from '../entities/user.entity';
 
 import { UserService } from '../entities/user.service';
@@ -16,7 +16,7 @@ import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
 import { UserDto } from '../service/dto/userInput';
 
 // avisando o NEST que este cara é um controller
-@Controller()
+@Controller('user')
 export class UserController {
   // o controller manda o service trabalhar/ se o controller não conhecer o service ele não vai funcionar/ controller depende do service/ quando dependo de algo coloco logo no constructor()
   constructor(private serviceUser: UserService) {}
