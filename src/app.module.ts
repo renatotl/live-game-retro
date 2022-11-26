@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { DatabaseModule } from './prisma/database.module';
 import { UserController } from './user/controller.user/user.controller';
 import { GameService } from './user/entities/games.service';
 import { UserService } from './user/entities/user.service';
@@ -22,6 +23,7 @@ import { GameController } from './user/game.controller/game.controller';
 
 // o Module é como a nossa FACTORY deposi que criamos o controller e service precisamos montar aqui
 @Module({
+  imports: [DatabaseModule],// precisa conhecer o prisma
   controllers: [UserController, GameController ],
   providers: [UserService, GameService ]
 })

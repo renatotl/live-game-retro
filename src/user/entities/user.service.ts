@@ -2,7 +2,11 @@ import { UserDto } from '../service/dto/userInput';
 import { IUserEntity } from './user.entity';
 import { randomUUID } from 'node:crypto';
 import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 export class UserService {
+
+  constructor(private readonly prisma: PrismaService){}
+
   private users: IUserEntity[] = []; // uma lista e iniciand como vazio
   // para criar um usuário vou precisar receber um user e vamos retornar uma promise da entitade que criamos
   async createUser(user: UserDto): Promise<IUserEntity> {
