@@ -10,6 +10,11 @@ export class UserService {
 
     // recebe tudo do user mais um id gerado pelo node
     const userEntity = { ...user, id: randomUUID() };// createAt: Date.now()// essa função vem do schema.prisma e retorna quando foi criado
+    if (user.password.length <= 7) {
+      throw new Error('Invalid password');
+    }
+
+
     this.users.push(userEntity); // recebe o user como parametro e coloca na lista users
     return userEntity;
 
@@ -46,6 +51,9 @@ export class UserService {
 
   /// Promise<IUserEntity[] como eu quero mais de um usuário vou receber uma lista de users
   async getAllUsers(): Promise<IUserEntity[]> {
+    if (this.users.length < 1) {
+      throw new Error('Não existe usuários cadastrados!');
+    }
     return this.users;
   }
 

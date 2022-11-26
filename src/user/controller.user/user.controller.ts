@@ -25,18 +25,28 @@ export class UserController {
   constructor(private serviceUser: UserService) {}
 
   // modificando uma class ou um metodo
-  @Get()
-  async getAllUsers(): Promise<IUserEntity[]> {
+  @Get()// ANTIGO Promise<IUserEntity[]>
+  async getAllUsers(@Res() response: Response,): Promise<void> {
     // mesmo método do service
-    return await this.serviceUser.getAllUsers(); // esse ultime getAllUsers() é a função do banco
+    try { 
+    const result = await this.serviceUser.getAllUsers(); // esse ultime getAllUsers() é a função do banco
+    response.status(201).send(result);
+    }catch (err) {
+     console.log(err)
+      response.status(400)
+      throw new BadRequestException(err.message); // mensgem vem do service
+    }
+    
   }
 
   @Get(':id') //esse cara colocamos ese parametro dentor do @Get porque famos receber por param
-  async getUserById(@Param() userId: string): Promise<IUserEntity> {
+  async getUserById(@Param() userId: string, @Res() response: Response,): Promise<void> {
     try {
-      return await this.serviceUser.getUserById(userId);
+      const result = await this.serviceUser.getUserById(userId);
+      response.status(201).send(result);
     } catch (err) {
       console.log(err);
+
     }
   }
 
@@ -67,24 +77,28 @@ export class UserController {
   //ele atualiza os dados mesmo que seja um campo só
   @Patch() //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
   // o Body diz que o userData tem que ter o id
-  async updateUser(@Body() userData: PartialUserDto): Promise<IUserEntity> {
+  async updateUser(@Body() userData: PartialUserDto,    @Res() response: Response,
+  ): Promise<void> {
     try {
-      return this.serviceUser.updateUser(userData);
+      const result  = await this.serviceUser.updateUser(userData);
+      response.status(201).send(result);
     } catch (err) {
       console.log(err);
+      response.status(400)
     }
   }
 
   // famos receber por param o id então vamos para a propriedade para dentro do decorator delete
   @Delete(':id') // esse Param vai pegar o 'id'
-  async deleteUserById(@Param('id') userId: string): Promise<string> {
+  async deleteUserById(@Param('id') userId: string,     @Res() response: Response,
+  ): Promise<string> {
     // promise de string
     try {
       const userIdDeleted = await this.serviceUser.deleteUserById(userId);
       if (userIdDeleted) {
-        return 'usuário deletado com sucesso';
+       return  'usuário deletado com sucesso';
       } else {
-        return 'Usuário não encontrado';
+       return  'Usuário não encontrado';
       }
     } catch (err) {
       console.log(err);

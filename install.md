@@ -32,7 +32,10 @@ npx prisma init: criou o arquivo .env e a pasta prisma
 npx prisma generate
 
 depois de fazer o banco no railway:acabei usando o Render
-npx prisma migrate dev
+npx prisma migrate dev: crias as tabelas
 
-npx prisma db push
+npx prisma db push: enpurrando para o banco
 =======
+no packag.jso p prisma cliente usado na produção ue faz a conexao
+
+
