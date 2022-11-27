@@ -99,9 +99,9 @@ export class UserController {
       const userIdDeleted = await this.serviceUser.deleteUserById(userId);
       console.log(userIdDeleted);
     if (userIdDeleted) {
-      return 'User deleted successfully';
+      return 'Usuário deletado com sucesso';
     } else {
-      return 'User not found';
+      return 'Usuário não encontrado';
     }
       
     } catch (err) {
