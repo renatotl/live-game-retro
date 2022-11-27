@@ -17,6 +17,8 @@ async function bootstrap() {
     .setTitle('Live Game Retro')
     .setDescription('Aplicação para cadastramento de novos games')
     .setVersion('1.0.0')
+    .addTag('user')
+    .addTag('games')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
