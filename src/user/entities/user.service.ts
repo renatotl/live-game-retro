@@ -2,10 +2,8 @@ import { UserDto } from '../service/dto/userInput';
 import { IUserEntity } from './user.entity';
 import { randomUUID } from 'node:crypto';
 import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
-import { PrismaService } from 'src/prisma/prisma.service';
 export class UserService {
 
-  constructor(private readonly prisma: PrismaService){}
 
   private users: IUserEntity[] = []; // uma lista e iniciand como vazio
   // para criar um usuário vou precisar receber um user e vamos retornar uma promise da entitade que criamos
@@ -16,6 +14,9 @@ export class UserService {
     const userEntity = { ...user, id: randomUUID() };// createAt: Date.now()// essa função vem do schema.prisma e retorna quando foi criado
     if (user.password.length <= 7) {
       throw new Error('Invalid password');
+    }
+    if (!user.password || !user.name || !user.cpf || !user.email) {
+      throw new Error('Prenecha todos os campos. Exemplo: nome, senha, cpf e email.');
     }
 
 
@@ -35,7 +36,9 @@ export class UserService {
 
   async updateUser(userData: PartialUserDto): Promise<IUserEntity> {
     // retorna 1 usuário
-
+    if (!userData.id ) {
+      throw new Error('Id inválido!');
+    }
     // faz um map em users ( usuário criado)
     this.users.map((user, index) => {
       // pegando o user eo index

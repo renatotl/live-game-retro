@@ -25,7 +25,7 @@ export class UserController {
   constructor(private serviceUser: UserService) {}
 
   // modificando uma class ou um metodo
-  @Get()// ANTIGO Promise<IUserEntity[]>
+  @Get('getAllUsers')// ANTIGO Promise<IUserEntity[]>
   async getAllUsers(@Res() response: Response,): Promise<void> {
     // mesmo método do service
     try { 
@@ -39,7 +39,7 @@ export class UserController {
     
   }
 
-  @Get(':id') //esse cara colocamos ese parametro dentor do @Get porque famos receber por param
+  @Get('getUserById/:id') //esse cara colocamos ese parametro dentor do @Get porque famos receber por param
   async getUserById(@Param('id') userId: string, @Res() response: Response,): Promise<void> {
     try {
       const result = await this.serviceUser.getUserById(userId);
@@ -50,7 +50,7 @@ export class UserController {
     }
   }
 
-  @Post() // o body eu vou querer '{}" desestruturado do tipo UserDto
+  @Post('createUser') // o body eu vou querer '{}" desestruturado do tipo UserDto
   async createUser(
     @Body() { cpf, email, password, name, role }: UserDto,
     @Res() response: Response,
@@ -69,13 +69,14 @@ export class UserController {
       response.status(201).send(result);
     } catch (err) {
       console.log(err);
+      response.status(400)
       throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
 
   // parch se não existir no bd o patch deve incerir
   //ele atualiza os dados mesmo que seja um campo só
-  @Patch() //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
+  @Patch('updateUser') //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
   // o Body diz que o userData tem que ter o id
   async updateUser(@Body() userData: PartialUserDto,    @Res() response: Response,
   ): Promise<void> {
@@ -85,11 +86,12 @@ export class UserController {
     } catch (err) {
       console.log(err);
       response.status(400)
+      throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
 
   // famos receber por param o id então vamos para a propriedade para dentro do decorator delete
-  @Delete(':id') // esse Param vai pegar o 'id'
+  @Delete('deleteUserById/:id') // esse Param vai pegar o 'id'
   async deleteUserById(@Param('id') userId: string
   ): Promise<String> {
     // promise de string
