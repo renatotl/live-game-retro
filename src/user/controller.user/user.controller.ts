@@ -40,7 +40,7 @@ export class UserController {
   }
 
   @Get(':id') //esse cara colocamos ese parametro dentor do @Get porque famos receber por param
-  async getUserById(@Param() userId: string, @Res() response: Response,): Promise<void> {
+  async getUserById(@Param('id') userId: string, @Res() response: Response,): Promise<void> {
     try {
       const result = await this.serviceUser.getUserById(userId);
       response.status(201).send(result);
@@ -90,16 +90,18 @@ export class UserController {
 
   // famos receber por param o id então vamos para a propriedade para dentro do decorator delete
   @Delete(':id') // esse Param vai pegar o 'id'
-  async deleteUserById(@Param('id') userId: string,     @Res() response: Response,
-  ): Promise<string> {
+  async deleteUserById(@Param('id') userId: string
+  ): Promise<String> {
     // promise de string
     try {
       const userIdDeleted = await this.serviceUser.deleteUserById(userId);
-      if (userIdDeleted) {
-       return  'usuário deletado com sucesso';
-      } else {
-       return  'Usuário não encontrado';
-      }
+      console.log(userIdDeleted);
+    if (userIdDeleted) {
+      return 'User deleted successfully';
+    } else {
+      return 'User not found';
+    }
+      
     } catch (err) {
       console.log(err);
     }

@@ -8,7 +8,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 // ele tá fazendo um app.listen igual ao express
 async function bootstrap() {
   // o NestFactory automaticamente coloca o service dentro do controller
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {cors: true});// habilitando o cors
 
   // validate
   app.useGlobalPipes(new ValidationPipe());
@@ -22,6 +22,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 //http://localhost:3000/api  .... para ver o swagger
-  await app.listen(3000);
+await app.listen(process.env.PORT || 3000);
+
 }
 bootstrap();
