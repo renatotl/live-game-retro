@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { IUserEntity } from '../entities/user.entity';
 import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
 
+// como vamos usar ele em outro lugar então vamos colocar o Injectable, um exemplo nos o colocamos no module
 @Injectable()
 export class UserRepository {
   // se eu precisar trocar o prisma só trocar o cara do constructor

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { DatabaseModule } from './prisma/database.module';
 import { UserController } from './user/controller.user/user.controller';
 import { GameService } from './user/entities/games.service';
+import { UserRepository } from './user/entities/user.repository';
 import { UserService } from './user/entities/user.service';
 import { GameController } from './user/game.controller/game.controller';
 // import { AppController } from './app.controller';
@@ -25,7 +26,7 @@ import { GameController } from './user/game.controller/game.controller';
 @Module({
   imports: [DatabaseModule], // precisa conhecer o prisma
   controllers: [UserController, GameController],
-  providers: [UserService, GameService],
+  providers: [UserService, GameService, UserRepository],
 })
 export class AppModule {}
 // o appModule que junto todo mundo

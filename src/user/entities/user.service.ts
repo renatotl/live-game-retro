@@ -2,40 +2,74 @@ import { UserDto } from '../service/dto/userInput';
 import { IUserEntity } from './user.entity';
 import { randomUUID } from 'node:crypto';
 import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
+import { UserRepository } from './user.repository';
+import { Injectable } from '@nestjs/common';
+
+@Injectable()// criando a instancia da class dentro do constructor/ faz uma nova instacia do userRepository/ ele instancia o prismaService
+//o Injectable cria uma instancia da class que está sendo injetada
+// o Injectable instancia a class dentro do constructor
 export class UserService {
-  private users: IUserEntity[] = []; // uma lista e iniciand como vazio
+  // trazendo o user repository pra cá com todas as funções do banco
+  constructor(private readonly userRepository: UserRepository) {}
+
+
+ //: Antigo private users: IUserEntity[] = []; // uma lista e iniciand como vazio
   // para criar um usuário vou precisar receber um user e vamos retornar uma promise da entitade que criamos
   async createUser(user: UserDto): Promise<IUserEntity> {
     // retorna 1 usuário
 
     // recebe tudo do user mais um id gerado pelo node
-    const userEntity = { ...user, id: randomUUID() }; // createAt: Date.now()// essa função vem do schema.prisma e retorna quando foi criado
+    const userEntity = { ...user, id: randomUUID() };// createAt: Date.now()// essa função vem do schema.prisma e retorna quando foi criado
     if (user.password.length <= 7) {
-      throw new Error('Invalid password');
+      throw new Error('Senha deve ser maior que 7 digitos');
     }
     if (!user.password || !user.name || !user.cpf || !user.email) {
-      throw new Error(
-        'Prenecha todos os campos. Exemplo: nome, senha, cpf e email.',
-      );
+      throw new Error('Prenecha todos os campos. Exemplo: nome, senha, cpf e email.');
     }
+    const createdUser = await this.userRepository.createUser(userEntity);
+    return createdUser;
 
+/* ANTIGO
     this.users.push(userEntity); // recebe o user como parametro e coloca na lista users
-    return userEntity;
+    return userEntity; */
 
     //return Promise.revolce(userEntity)  outra forma de fazer caso eu não tenha o async em cima
   }
 
   async getUserById(userId: string): Promise<IUserEntity> {
-    const existUser = this.users.find((user) => user.id === userId);
-    if (!existUser) {
-      throw new Error('User não encontrado');
+    const foundUser = await this.userRepository.findUserById(userId);
+    if(!foundUser){
+      throw new Error("User não encontrado")
     }
-    return existUser;
+    return foundUser;
   }
 
+
+
+
+/* ANTIGO
+  async getUserById(userId: string): Promise<IUserEntity>{
+    const existUser = this.users.find((user) => user.id === userId)
+   
+    if(!existUser){
+      throw new Error("User não encontrado")
+    }
+    return existUser
+  }
+*/
+
+  async updateUser(userData: PartialUserDto): Promise<IUserEntity> {
+    const updatedUser = await this.userRepository.updateUser(userData);
+    if (!updatedUser.id ) {
+      throw new Error('Id inválido!');
+      }
+    return updatedUser;
+  }
+
+  /* ANTIGO
   async updateUser(userData: PartialUserDto): Promise<IUserEntity> {
     // retorna 1 usuário
-    if (!userData.id) {
+    if (!userData.id ) {
       throw new Error('Id inválido!');
     }
     // faz um map em users ( usuário criado)
@@ -55,6 +89,17 @@ export class UserService {
     return updatedUser;
   }
 
+*/
+   async getAllUsers(): Promise<IUserEntity[]> {
+  const value = await this.userRepository.findAllUsers()
+
+    if (value.length < 1) {
+      throw new Error('Não existe usuários cadastrados!');
+    }
+    return await this.userRepository.findAllUsers();
+  }
+
+  /* ANTIGO
   /// Promise<IUserEntity[] como eu quero mais de um usuário vou receber uma lista de users
   async getAllUsers(): Promise<IUserEntity[]> {
     if (this.users.length < 1) {
@@ -62,8 +107,20 @@ export class UserService {
     }
     return this.users;
   }
-
+*/
   // deletar um usuário
+
+  async deleteUserById(userId: string): Promise<boolean> {
+    try {
+      await this.userRepository.deleteUser(userId);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  }
+
+/* ANTIGO
   async deleteUserById(userId: string): Promise<Boolean> {
     const existUser = this.users.find((user) => user.id === userId);
     if (!existUser) {
@@ -78,7 +135,9 @@ export class UserService {
   }
 }
 
+*/
 // foi feito uma interface IUserEntity, mas o usuário não pode criar o próprio id
 // foi feito um class UserDto sem o id e importado pra cá
 // foi importado o f=gerador de id do node
 // foi juntado tudo na const userEntity e mandado para IUserEntity no createUser
+}
