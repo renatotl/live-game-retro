@@ -5,17 +5,17 @@ import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
 
 @Injectable()
 export class UserRepository {
-    // se eu precisar trocar o prisma só trocar o cara do constructor
+  // se eu precisar trocar o prisma só trocar o cara do constructor
   constructor(private readonly prisma: PrismaService) {}
 
   async createUser(user: IUserEntity): Promise<IUserEntity> {
-    //para criar precisamos passar parametros 
+    //para criar precisamos passar parametros
     const CreatedUser = await this.prisma.user.create({ data: user });
     return CreatedUser;
   }
 
   async updateUser(user: PartialUserDto): Promise<IUserEntity> {
-    // preciso saber o cara cara e onde 
+    // preciso saber o cara cara e onde
     const UpdatedUser = await this.prisma.user.update({
       where: { id: user.id },
       data: user,
@@ -37,7 +37,7 @@ export class UserRepository {
 
   async findUserById(id: string): Promise<IUserEntity> {
     const foundUser = await this.prisma.user.findUniqueOrThrow({
-        // onde 
+      // onde
       where: { id: id },
     });
 

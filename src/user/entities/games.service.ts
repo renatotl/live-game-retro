@@ -5,7 +5,6 @@ import { PartialGameDto } from '../service/dto/partialGameInput.Dto';
 
 export class GameService {
   private games: IGamesEntity[] = []; // uma lista e iniciand como vazio
-  
 
   async createGame(game: GameDto): Promise<IGamesEntity> {
     const gameEntity = { ...game, id: randomUUID() };
@@ -30,36 +29,26 @@ export class GameService {
     return updatedGame;
   }
 
-   // deletar um usuário
-//    async deleteGame(gameData:PartialGameDto ): Promise<IGamesEntity> {
-   
+  // deletar um usuário
+  //    async deleteGame(gameData:PartialGameDto ): Promise<IGamesEntity> {
 
+  // }
 
-// }
-
-async deleteGame(  gameData: PartialGameDto){
-  const newId = await this.games.map((game, index) => {
-
-    if (game.id === gameData.id) {
-
-      this.games.splice(index, 1); 
-   console.log("Apagou!")
-    }else{
-      console.log("Algo deu errado!")
-    }
-
-  }) 
+  async deleteGame(gameData: PartialGameDto) {
+    const newId = await this.games.map((game, index) => {
+      if (game.id === gameData.id) {
+        this.games.splice(index, 1);
+        console.log('Apagou!');
+      } else {
+        console.log('Algo deu errado!');
+      }
+    });
     return newId;
 
-  
-  // primeiro ID é do banco o segundo vem por parametro
-//return await this.games.deleteOne({id: id}).exec()
+    // primeiro ID é do banco o segundo vem por parametro
+    //return await this.games.deleteOne({id: id}).exec()
 
-// o primeiro parãmetro tira o segundo é a quantidade
-//return await this.games.splice(id, 1 )
-
-
-
-
+    // o primeiro parãmetro tira o segundo é a quantidade
+    //return await this.games.splice(id, 1 )
+  }
 }
- }

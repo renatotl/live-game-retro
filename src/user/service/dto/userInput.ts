@@ -6,19 +6,19 @@ import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 export class UserDto {
   // só não tem o id
 
-  @ApiProperty()//swagger
+  @ApiProperty() //swagger
   @IsString()
   name: string;
-  @ApiProperty()//swagger
+  @ApiProperty() //swagger
   @IsEmail()
   email: string;
-  @ApiProperty()//swagger
+  @ApiProperty() //swagger
   @IsString()
   password: string;
-  @ApiProperty()//swagger
+  @ApiProperty() //swagger
   @IsString()
   cpf: string; // cpf só pode ser string / existe CPF que tem o 0 na frente e o banco desconsidera esse cara!
-  @ApiProperty()//swagger
+  @ApiProperty() //swagger
   @IsString()
   role: string;
 }

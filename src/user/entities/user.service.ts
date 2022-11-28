@@ -3,22 +3,21 @@ import { IUserEntity } from './user.entity';
 import { randomUUID } from 'node:crypto';
 import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
 export class UserService {
-
-
   private users: IUserEntity[] = []; // uma lista e iniciand como vazio
   // para criar um usuário vou precisar receber um user e vamos retornar uma promise da entitade que criamos
   async createUser(user: UserDto): Promise<IUserEntity> {
     // retorna 1 usuário
 
     // recebe tudo do user mais um id gerado pelo node
-    const userEntity = { ...user, id: randomUUID() };// createAt: Date.now()// essa função vem do schema.prisma e retorna quando foi criado
+    const userEntity = { ...user, id: randomUUID() }; // createAt: Date.now()// essa função vem do schema.prisma e retorna quando foi criado
     if (user.password.length <= 7) {
       throw new Error('Invalid password');
     }
     if (!user.password || !user.name || !user.cpf || !user.email) {
-      throw new Error('Prenecha todos os campos. Exemplo: nome, senha, cpf e email.');
+      throw new Error(
+        'Prenecha todos os campos. Exemplo: nome, senha, cpf e email.',
+      );
     }
-
 
     this.users.push(userEntity); // recebe o user como parametro e coloca na lista users
     return userEntity;
@@ -26,17 +25,17 @@ export class UserService {
     //return Promise.revolce(userEntity)  outra forma de fazer caso eu não tenha o async em cima
   }
 
-  async getUserById(userId: string): Promise<IUserEntity>{
-    const existUser = this.users.find((user) => user.id === userId)
-    if(!existUser){
-      throw new Error("User não encontrado")
+  async getUserById(userId: string): Promise<IUserEntity> {
+    const existUser = this.users.find((user) => user.id === userId);
+    if (!existUser) {
+      throw new Error('User não encontrado');
     }
-    return existUser
+    return existUser;
   }
 
   async updateUser(userData: PartialUserDto): Promise<IUserEntity> {
     // retorna 1 usuário
-    if (!userData.id ) {
+    if (!userData.id) {
       throw new Error('Id inválido!');
     }
     // faz um map em users ( usuário criado)

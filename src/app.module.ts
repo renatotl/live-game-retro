@@ -23,9 +23,9 @@ import { GameController } from './user/game.controller/game.controller';
 
 // o Module é como a nossa FACTORY deposi que criamos o controller e service precisamos montar aqui
 @Module({
-  imports: [DatabaseModule],// precisa conhecer o prisma
-  controllers: [UserController, GameController ],
-  providers: [UserService, GameService ]
+  imports: [DatabaseModule], // precisa conhecer o prisma
+  controllers: [UserController, GameController],
+  providers: [UserService, GameService],
 })
 export class AppModule {}
 // o appModule que junto todo mundo
