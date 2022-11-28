@@ -8,7 +8,9 @@ import {
   Param,
   Delete,
   Res,
+  
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { IUserEntity } from '../entities/user.entity';
@@ -18,7 +20,8 @@ import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
 
 import { UserDto } from '../service/dto/userInput';
 
-// avisando o NEST que este cara é um controller
+// avisando o NEST que este cara é um 
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   // o controller manda o service trabalhar/ se o controller não conhecer o service ele não vai funcionar/ controller depende do service/ quando dependo de algo coloco logo no constructor()
@@ -76,6 +79,9 @@ export class UserController {
 
   // parch se não existir no bd o patch deve incerir
   //ele atualiza os dados mesmo que seja um campo só
+  @ApiOperation({
+    summary: "O id vai no Body!"
+  })
   @Patch('updateUser') //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
   // o Body diz que o userData tem que ter o id
   async updateUser(@Body() userData: PartialUserDto,    @Res() response: Response,
