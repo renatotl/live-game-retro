@@ -1,33 +1,39 @@
 import { ApiProperty } from '@nestjs/swagger'; // yarn add @nestjs/swagger
-import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class GameDto {
   @ApiProperty() //swagger
   @IsNotEmpty()
-  @IsNumber()
-  price: number;
+  @IsString()
+  title: string;
 
   @ApiProperty() //swagger
   @IsNotEmpty()
-  @IsNumber()
-  data: number;
+  @IsString()
+  coverImageUrl: string;
 
   @ApiProperty() //swagger
   @IsNotEmpty()
-  favorite: boolean;
+  @IsString()
+  Description: string;
 
   @ApiProperty() //swagger
   @IsString()
   @IsNotEmpty()
-  img: string;
+  year: string;
 
   @ApiProperty() //swagger
   @IsString()
   @IsNotEmpty()
-  comment: string;
+  ImdbScore: string;
 
   @ApiProperty() //swagger
   @IsString()
   @IsNotEmpty()
-  name: string;
+  TrailerYouTubeUrl: string;
+
+  @ApiProperty() //swagger
+  @IsString()
+  @IsNotEmpty()
+  GameplayYouTubeUrl: string
 }
