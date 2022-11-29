@@ -17,10 +17,16 @@ export class UserRepository {
 
   async updateUser(user: PartialUserDto): Promise<IUserEntity> {
     // preciso saber o cara cara e onde
+    // const foundUser = await this.prisma.user.findUniqueOrThrow({
+    //   // onde
+    //   where: { id: user.id },
+    // });
+   
     const UpdatedUser = await this.prisma.user.update({
       where: { id: user.id },
       data: user,
     });
+    
     return UpdatedUser;
   }
 

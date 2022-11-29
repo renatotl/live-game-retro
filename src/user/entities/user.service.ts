@@ -59,6 +59,7 @@ export class UserService {
 */
 
   async updateUser(userData: PartialUserDto): Promise<IUserEntity> {
+        await this.userRepository.findUserById(userData.id)
     const updatedUser = await this.userRepository.updateUser(userData);
     if (!updatedUser.id ) {
       throw new Error('Id inválido!');
@@ -91,6 +92,7 @@ export class UserService {
 
 */
    async getAllUsers(): Promise<IUserEntity[]> {
+
   const value = await this.userRepository.findAllUsers()
 
     if (value.length < 1) {
@@ -111,7 +113,10 @@ export class UserService {
   // deletar um usuário
 
   async deleteUserById(userId: string): Promise<boolean> {
+    
     try {
+      await this.userRepository.findUserById(userId)
+      
       await this.userRepository.deleteUser(userId);
       return true;
     } catch (err) {
