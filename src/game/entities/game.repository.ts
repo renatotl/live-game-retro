@@ -8,7 +8,7 @@ export class GameRepository {
 
     constructor( private readonly primsa: PrismaService){}
 
-    async create(game:IGamesEntity): Promise<IGamesEntity>{
+    async createGame(game:IGamesEntity): Promise<IGamesEntity>{
       const createdGame = await this.primsa.game.create({data: game})
       return createdGame
     }

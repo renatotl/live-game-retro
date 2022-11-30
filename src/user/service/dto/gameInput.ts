@@ -15,7 +15,7 @@ export class GameDto {
   @ApiProperty() //swagger
   @IsNotEmpty()
   @IsString()
-  Description: string;
+  description: string;
 
   @ApiProperty() //swagger
   @IsString()
@@ -25,15 +25,15 @@ export class GameDto {
   @ApiProperty() //swagger
   @IsString()
   @IsNotEmpty()
-  ImdbScore: string;
+  imdbScore: string;
 
   @ApiProperty() //swagger
   @IsString()
   @IsNotEmpty()
-  TrailerYouTubeUrl: string;
+  trailerYouTubeUrl: string;
 
   @ApiProperty() //swagger
   @IsString()
   @IsNotEmpty()
-  GameplayYouTubeUrl: string
+  gameplayYouTubeUrl: string
 }

@@ -12,6 +12,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+// toda vez que alterarmos o schema precisamos usar os comandos abaixo
+// npx prisma migrate dev
+// npx prisma db push
+//============
+
+
+// Update available 4.6.1 -> 4.7.0                        │
+//  Run the following to update                            │
+//    npm i --save-dev prisma@latest                       │
+ //   npm i @prisma/client@latest 
+
+
 // não são decorator e sim flags. 
 // recebe um id e é único
 model User {
@@ -30,13 +43,13 @@ model User {
 
 model Game { 
   id String @id @unique
-  Title String
-  CoverImageUrl String
-  Description String
-  Year String
-  ImdbScore String
-  TrailerYouTubeUrl String
-  GameplayYouTubeUrl String
+  title String
+  coverImageUrl String
+  description String
+  year String
+  imdbScore String
+  trailerYouTubeUrl String
+  gameplayYouTubeUrl String
    //campos que não vão pra aplicação
   createAt DateTime @default(now()) // saber quando o dado foi criado
   updateAt DateTime @updatedAt // pra saber quando foi atualizado
