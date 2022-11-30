@@ -10,7 +10,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { GameService } from '../entities/games.service';
-import { PartialGameDto } from '../service/dto/partialGameInput.Dto';
+import { PartialGameDto } from '../../user/service/dto/partialGameInput.Dto';
 
 @ApiTags('games')
 @Controller('games')
