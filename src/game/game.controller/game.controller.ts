@@ -9,7 +9,7 @@ import {
   Res,
   BadRequestException,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { GameService } from '../entities/games.service';
@@ -74,13 +74,39 @@ export class GameController {
     }
   }
 
-  @Patch()
-  updateGame() {
-    return this.serviceGame;
+  @ApiOperation({
+    summary: 'O id vai no Body!',
+  })
+  @Patch('updateUser') //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
+  // o Body diz que o userData tem que ter o id
+  async updateGame(
+    @Body() gameData: PartialGameDto,
+    @Res() response: Response,
+  ): Promise<void> {
+    try {
+      const result = await this.serviceGame.updateGame(gameData);
+      response.status(201).send(result);
+    } catch (err) {
+      console.log(err);
+      response.status(400);
+      throw new BadRequestException(err.message); // mensgem vem do service
+    }
   }
 
-  @Delete()
-  deleteGame() {
-    return this.serviceGame;
+  @Delete('deleteGameById/:id') // esse Param vai pegar o 'id'
+  async deleteGameById(@Param('id') gameId: string): Promise<String> {
+    // promise de string
+    try {
+      const gameIdDeleted = await this.serviceGame.deleteGame(gameId);
+      console.log(gameIdDeleted);
+      if (gameIdDeleted) {
+        return 'Game deletado com sucesso';
+      } else {
+        return 'Game não encontrado';
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
+
 }
