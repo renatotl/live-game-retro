@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PartialGameDto } from "src/user/service/dto/partialGameInput.Dto";
 import { IGamesEntity } from "./games.entity";
-
+import { PrismaService } from "../../prisma/prisma.service"
 
 @Injectable()
 export class GameRepository {

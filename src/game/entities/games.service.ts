@@ -3,6 +3,7 @@ import { IGamesEntity } from './games.entity';
 import { randomUUID } from 'crypto';
 import { PartialGameDto } from '../../user/service/dto/partialGameInput.Dto';
 import { Injectable } from '@nestjs/common';
+import { GameRepository } from './game.repository';
 
 @Injectable()
 export class GameService {
