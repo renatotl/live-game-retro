@@ -16,6 +16,8 @@ datasource db {
 // toda vez que alterarmos o schema precisamos usar os comandos abaixo
 // npx prisma migrate dev
 // npx prisma db push
+
+// yarn add @prisma/client/ informando para o prisma as novas funções 
 //============
 
 

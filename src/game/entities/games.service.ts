@@ -15,11 +15,11 @@ export class GameService {
   }
   async createGame(game: GameDto): Promise<IGamesEntity> {
     const gameEntity = { ...game, id: randomUUID() };
-    if (!game.title || !game.year || !game.coverImageUrl || !game.TrailerYouTubeUrl || !game.ImdbScore || !game.GameplayYouTubeUrl || !game.Description) {
+    if (!game.title || !game.year || !game.coverImageUrl || !game.trailerYouTubeUrl || !game.imdbScore || !game.gameplayYouTubeUrl || !game.description) {
       throw new Error('Prenecha todos os campos. Exemplo: título, ano e decrição.');
     }
 
-    const createGame = await this.gameRepository.creteGame(gameEntity);
+    const createGame = await this.gameRepository.createGame(gameEntity);
     return createGame
     // this.games.push(gameEntity);
     // return gameEntity;
@@ -27,7 +27,7 @@ export class GameService {
 
 
   async getGameById(gameId: string): Promise<IGamesEntity> {
-    const foundGame = await this.gameRepository.findUserById(gameId);
+    const foundGame = await this.gameRepository.findGameById(gameId);
     if(!foundGame){
       throw new Error("Game não encontrado")
     }
@@ -82,7 +82,7 @@ export class GameService {
 
   async deleteGame(id: string): Promise<boolean> {
     try { 
-     await this.gameRepository.deleteGame()
+     await this.gameRepository.deleteGame(id)
      return true
     }catch (err){
       console.log(err)

@@ -8,6 +8,7 @@ import { UserService } from './user/entities/user.service';
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
 import { ProfileModule } from './profile/profile.module';
+import { ModuleGame } from './game/game.module';
 
 //decorator tendo o  controller e service
 // o controller é o cara que controla as rotas
@@ -25,7 +26,7 @@ import { ProfileModule } from './profile/profile.module';
 
 // o Module é como a nossa FACTORY deposi que criamos o controller e service precisamos montar aqui
 @Module({
-  imports: [DatabaseModule, ProfileModule], // precisa conhecer o prisma
+  imports: [DatabaseModule, ProfileModule, ModuleGame], // precisa conhecer o prisma
   controllers: [UserController],
   providers: [UserService, UserRepository],
 })
