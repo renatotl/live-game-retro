@@ -21,6 +21,7 @@ datasource db {
 //============
 
 
+
 // Update available 4.6.1 -> 4.7.0                        │
 //  Run the following to update                            │
 //    npm i --save-dev prisma@latest                       │

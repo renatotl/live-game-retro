@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'; // yarn add @nestjs/swagger
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class GameDto {
   @ApiProperty() //swagger
@@ -36,4 +36,11 @@ export class GameDto {
   @IsString()
   @IsNotEmpty()
   gameplayYouTubeUrl: string
+
+
+
+  // campo de relacionamento tabela Genero
+  @ApiProperty() //swagger
+  @IsUUID()
+  generoId: string
 }

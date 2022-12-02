@@ -1,7 +1,7 @@
 
 import { ApiProperty } from '@nestjs/swagger'; // yarn add @nestjs/swagger
 
-import {IsString} from "class-validator"
+import {IsString, IsUUID} from "class-validator"
 
 
 export class CreateProfileDto {
@@ -10,4 +10,8 @@ export class CreateProfileDto {
     @IsString()
     title: string
     imageURL: string
+
+    @ApiProperty()
+    @IsUUID()// não precisa do isString
+    userId: String// recebe o dado do relacionamento ID/ relacionamento com a tabela User
 }
