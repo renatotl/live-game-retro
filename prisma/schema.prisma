@@ -36,6 +36,12 @@ model User {
   password String
   cpf      String
   role     String
+
+
+// referencia com Profile
+  profiles Profile[]// 1 para N ou N para 1
+
+
   //campos que não vão pra aplicação
   createAt DateTime @default(now()) // saber quando o dado foi criado
   updateAt DateTime @updatedAt // pra saber quando foi atualizado
@@ -55,4 +61,44 @@ model Game {
    //campos que não vão pra aplicação
   createAt DateTime @default(now()) // saber quando o dado foi criado
   updateAt DateTime @updatedAt // pra saber quando foi atualizado
+
+
+// referencia com Profile
+ profile Profile[]// 1 para N ou N para 1
+
+
+//referencia com Genero
+   genero Genero? @relation(fields: [generoId], references: [id])// 1 para 1
+  generoId String?
 }
+
+
+ model Profile {
+
+  id String @id @unique
+  title String
+  imageURL String
+
+  //================
+  // relacionamento não é obrigatório
+  // relation que pede 2 param 1° fied: o campo dentro da entidade que faz o relacionamento 2° referencia: qual é o campo que vai relacionar na entidade estrangeira a Foreign Key 
+  user User? @relation(fields: [userId], references: [id])// 1 para 1
+  userId String?
+// referencia com Use
+//===================
+
+
+// referencia com Game
+  games Game[]// 1 para N ou N para 1
+
+
+
+ }
+
+ model Genero {
+   id String @id @unique
+   title String
+
+   // referencia com game
+  games Game[]// 1 para N ou N para 1
+ }

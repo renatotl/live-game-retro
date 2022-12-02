@@ -43,10 +43,12 @@ export class UserRepository {
   }
 
   async findUserById(id: string): Promise<IUserEntity> {
+    
     const foundUser = await this.prisma.user.findUniqueOrThrow({
       // onde
       where: { id: id },
     });
+
 
     return foundUser;
   }

@@ -50,6 +50,7 @@ export class UserController {
       response.status(201).send(result);
     } catch (err) {
       console.log(err);
+      throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
 
