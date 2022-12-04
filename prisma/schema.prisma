@@ -102,4 +102,9 @@ model Game {
 
    // referencia com game
   games Game[]// 1 para N ou N para 1
+
+ //campos que não vão pra aplicação
+  createAt DateTime @default(now()) // saber quando o dado foi criado
+  updateAt DateTime @updatedAt // pra saber quando foi atualizado
+
  }
