@@ -1,5 +1,5 @@
 import { CreateProfileDto } from "../dto/create-profile.dto"
 
-export class Profile extends CreateProfileDto {
+export interface IProfileEntity extends CreateProfileDto {
     id:string
 }
