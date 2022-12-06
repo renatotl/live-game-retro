@@ -9,9 +9,12 @@ export class CreateProfileDto {
     @ApiProperty()
     @IsString()
     title: string
+    
+    @ApiProperty()
+    @IsString()
     imageURL: string
 
     @ApiProperty()
     @IsUUID()// não precisa do isString
-    userId: String// recebe o dado do relacionamento ID/ relacionamento com a tabela User
+    userId: string// recebe o dado do relacionamento ID/ relacionamento com a tabela User
 }
