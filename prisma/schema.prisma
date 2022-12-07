@@ -32,7 +32,7 @@ model User {
   email    String @unique
   password String
   cpf      String @unique
-  role     String  @map("is_admin")
+  role     Boolean @default(false) @map("is_admin")
 
   // referencia com Profile
   profiles Profile[] // 1 para N ou N para 1
