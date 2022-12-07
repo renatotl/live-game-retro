@@ -35,7 +35,7 @@ model User {
   name     String
   email    String   @unique
   password String
-  cpf      String
+  cpf      String  @unique
   role     String
 
 
