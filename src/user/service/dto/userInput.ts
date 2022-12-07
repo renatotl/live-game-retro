@@ -19,6 +19,5 @@ export class UserDto {
   @IsString()
   cpf: string; // cpf só pode ser string / existe CPF que tem o 0 na frente e o banco desconsidera esse cara!
   @ApiProperty() //swagger
-  @IsString()
-  role: string;
+  role: boolean;
 }

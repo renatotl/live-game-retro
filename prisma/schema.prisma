@@ -58,13 +58,13 @@ model Game {
   updateAt           DateTime @updatedAt // pra saber quando foi atualizado
 
   // referencia com Profile
-  profile Profile[] // 1 para N ou N para 1
+  profiles Profile[] // 1 para N ou N para 1
 
   //referencia com Genero
   // genero   Genero? @relation(fields: [generoId], references: [id]) // 1 para 1
   // generoId String?// só se fosse um único genero
 
-    genero Genero[]
+    generos Genero[]
 }
 
 model Profile {
@@ -75,7 +75,7 @@ model Profile {
   //================
   // relacionamento não é obrigatório
   // relation que pede 2 param 1° fied: o campo dentro da entidade que faz o relacionamento 2° referencia: qual é o campo que vai relacionar na entidade estrangeira a Foreign Key 
-  user   User?   @relation(fields: [userId], references: [id]) // 1 para 1
+  users   User?   @relation(fields: [userId], references: [id]) // 1 para 1
   userId String?
   // referencia com Use
   //===================
