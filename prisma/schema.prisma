@@ -12,7 +12,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 // toda vez que alterarmos o schema precisamos usar os comandos abaixo
 // npx prisma migrate dev
 // npx prisma db push
@@ -20,28 +19,23 @@ datasource db {
 // yarn add @prisma/client/ informando para o prisma as novas funções 
 //============
 
-
-
 // Update available 4.6.1 -> 4.7.0                        │
 //  Run the following to update                            │
 //    npm i --save-dev prisma@latest                       │
- //   npm i @prisma/client@latest 
-
+//   npm i @prisma/client@latest 
 
 // não são decorator e sim flags. 
 // recebe um id e é único
 model User {
-  id       String   @id @unique
+  id       String @id @unique @default(uuid())
   name     String
-  email    String   @unique
+  email    String @unique
   password String
-  cpf      String  @unique
-  role     String
+  cpf      String @unique
+  role     String  @map("is_admin")
 
-
-// referencia com Profile
-  profiles Profile[]// 1 para N ou N para 1
-
+  // referencia com Profile
+  profiles Profile[] // 1 para N ou N para 1
 
   //campos que não vão pra aplicação
   createAt DateTime @default(now()) // saber quando o dado foi criado
@@ -50,61 +44,59 @@ model User {
 
 // extenção prisma par visualisar
 
-model Game { 
-  id String @id @unique
-  title String
-  coverImageUrl String
-  description String
-  year String
-  imdbScore String
-  trailerYouTubeUrl String
-  gameplayYouTubeUrl String
-   //campos que não vão pra aplicação
-  createAt DateTime @default(now()) // saber quando o dado foi criado
-  updateAt DateTime @updatedAt // pra saber quando foi atualizado
+model Game {
+  id                 String   @id @unique @default(uuid())
+  title              String
+  coverImageUrl      String @map("cover_image")
+  description        String 
+  year               String
+  imdbScore          String @map("imb_score")
+  trailerYouTubeUrl  String @map("trailer_video")
+  gameplayYouTubeUrl String @map("gameplay_video")
+  //campos que não vão pra aplicação
+  createAt           DateTime @default(now()) // saber quando o dado foi criado
+  updateAt           DateTime @updatedAt // pra saber quando foi atualizado
 
+  // referencia com Profile
+  profile Profile[] // 1 para N ou N para 1
 
-// referencia com Profile
- profile Profile[]// 1 para N ou N para 1
+  //referencia com Genero
+  // genero   Genero? @relation(fields: [generoId], references: [id]) // 1 para 1
+  // generoId String?// só se fosse um único genero
 
-
-//referencia com Genero
-   genero Genero? @relation(fields: [generoId], references: [id])// 1 para 1
-  generoId String?
+    genero Genero[]
 }
 
-
- model Profile {
-
-  id String @id @unique
-  title String
-  imageURL String
+model Profile {
+  id       String @id @unique  @default(uuid())
+  title    String
+  imageURL String @map("image")
 
   //================
   // relacionamento não é obrigatório
   // relation que pede 2 param 1° fied: o campo dentro da entidade que faz o relacionamento 2° referencia: qual é o campo que vai relacionar na entidade estrangeira a Foreign Key 
-  user User? @relation(fields: [userId], references: [id])// 1 para 1
+  user   User?   @relation(fields: [userId], references: [id]) // 1 para 1
   userId String?
-// referencia com Use
-//===================
+  // referencia com Use
+  //===================
+
+  // referencia com Game
+  games Game[] // 1 para N ou N para 1
+
+  createAt           DateTime @default(now()) // saber quando o dado foi criado
+  updateAt           DateTime @updatedAt // pra saber quando foi atualizado
 
 
-// referencia com Game
-  games Game[]// 1 para N ou N para 1
+}
 
+model Genero {
+  id    String @id @unique   @default(uuid())
+  title String
 
+  // referencia com game
+  games Game[] // 1 para N ou N para 1
 
- }
-
- model Genero {
-   id String @id @unique
-   title String
-
-   // referencia com game
-  games Game[]// 1 para N ou N para 1
-
- //campos que não vão pra aplicação
+  //campos que não vão pra aplicação
   createAt DateTime @default(now()) // saber quando o dado foi criado
   updateAt DateTime @updatedAt // pra saber quando foi atualizado
-
- }
+}
