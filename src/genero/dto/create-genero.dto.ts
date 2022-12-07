@@ -7,7 +7,7 @@ export class CreateGeneroDto {
     // só não tem o id
   @ApiProperty()
   @IsString()
-  title: String
+  title: string
    
 //   @ApiProperty()
 //   @IsUUID()

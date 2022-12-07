@@ -15,6 +15,7 @@ export class GeneroRepository {
    
     async updateGenero(genero: PartialGeneroDto): Promise<IGeneroEntity>{
      const updatedGenero = await this.primsa.genero.update({
+      // meu id vai der igual ao id do banco
         where: {id: genero.id},
         data: genero
      })

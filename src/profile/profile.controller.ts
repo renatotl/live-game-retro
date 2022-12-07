@@ -12,7 +12,7 @@ export class ProfileController {
 
   @Post('createProfile')
   async createProfile(
-    @Body() { title, imageURL }: CreateProfileDto,
+    @Body() { title, imageURL, userId }: CreateProfileDto,
     @Res() response: Response,
   ): Promise<void> {
     // de IUserEntity troquie para void porque não tem return
