@@ -75,7 +75,7 @@ export class ProfileController {
   }
 
   @Delete('deleteProfileById/:id')
-  async deleteProfileById(@Param('id') profileId: string): Promise<String> {
+  async deleteProfileById(@Param('id') profileId: string): Promise<string> {
     // promise de string
     try {
       const profileIdDeleted = await this.profileService.delete(profileId);

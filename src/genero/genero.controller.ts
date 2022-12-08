@@ -74,7 +74,7 @@ export class GeneroController {
   }
 
   @Delete('deleteGeneroById/:id')
-  async deleteGeneroById(@Param('id') generoId: string): Promise<String> {
+  async deleteGeneroById(@Param('id') generoId: string): Promise<string> {
     // promise de string
     try {
       const generoIdDeleted = await this.generoService.remove(generoId);

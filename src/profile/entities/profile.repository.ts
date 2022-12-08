@@ -29,9 +29,9 @@ export class ProfileRepository {
        return result
     }
 
-    async deleteProfile(id: string) {
-        const deletedProfile = await this.prisma.user.delete({
-            where: { id: id },
+    async deleteProfile(id: string): Promise<IProfileEntity> {
+        const deletedProfile = await this.prisma.profile.delete({
+            where: { id: id }
           });
           return deletedProfile;
     }
