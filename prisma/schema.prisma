@@ -34,7 +34,7 @@ model User {
   cpf      String @unique
   role     Boolean @default(false) @map("is_admin")
 
-  // referencia com Profile
+  // referencia com Profile/  usuário vai poder ter muitos perfis
   profiles Profile[] // 1 para N ou N para 1
 
   //campos que não vão pra aplicação
@@ -68,16 +68,22 @@ model Game {
 }
 
 model Profile {
-  id       String @id @unique  @default(uuid())
+  id       String @id @unique  @default(uuid())// informando que o padrão é um uuId
   title    String
   imageURL String @map("image")
 
   //================
   // relacionamento não é obrigatório
   // relation que pede 2 param 1° fied: o campo dentro da entidade que faz o relacionamento 2° referencia: qual é o campo que vai relacionar na entidade estrangeira a Foreign Key 
+  // user = model User
+  // userId é o tipo que no caso é string
+  //@relation tem 2 campos
+  // o fields guarda a chave estrangeira no caso userId
+  // references é a referencia que é o id/ esse id é o id da tabela User
   users   User?   @relation(fields: [userId], references: [id]) // 1 para 1
-  userId String?
+  userId String?// esse é o campo que guarda a chave estrangeira
   // referencia com Use
+  // as referencias só podem ser com chave única como no caso na model User temos tanto o Id quanto o Cpf como únicos, mas vamos usar o Id
   //===================
 
   // referencia com Game
