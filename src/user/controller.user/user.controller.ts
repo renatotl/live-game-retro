@@ -9,6 +9,7 @@ import {
   Delete,
   Res,
 } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
@@ -31,7 +32,7 @@ export class UserController {
   
   // modificando uma class ou um metodo
   @Get('getAllUsers') // ANTIGO Promise<IUserEntity[]>
-  //@UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
   @ApiBearerAuth()
   async getAllUsers(@Res() response: Response): Promise<void> {
     // mesmo método do service
@@ -48,7 +49,7 @@ export class UserController {
  
   @Get('getUserById/:id') //esse cara colocamos ese parametro dentor do @Get porque famos receber por param
   @ApiBearerAuth()
-  //@UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
   async getUserById(
     @Param('id') userId: string,
     @Res() response: Response,
@@ -94,7 +95,7 @@ export class UserController {
   })
   @Patch('updateUser') //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
   // o Body diz que o userData tem que ter o id
-  //@UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
   @ApiBearerAuth()
   async updateUser(
     @Body() userData: PartialUserDto,
@@ -113,7 +114,7 @@ export class UserController {
   // famos receber por param o id então vamos para a propriedade para dentro do decorator delete
   
   @Delete('deleteUserById/:id') // esse Param vai pegar o 'id'
- // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
   @ApiBearerAuth()
   async deleteUserById(@Param('id') userId: string): Promise<String> {
     // promise de string
