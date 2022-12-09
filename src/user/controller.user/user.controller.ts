@@ -9,6 +9,7 @@ import {
   Delete,
   Res,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
@@ -26,9 +27,12 @@ export class UserController {
   // o controller manda o service trabalhar/ se o controller não conhecer o service ele não vai funcionar/ controller depende do service/ quando dependo de algo coloco logo no constructor()
   constructor(private serviceUser: UserService) {}
 
-  @ApiBearerAuth()
+  
+  
   // modificando uma class ou um metodo
   @Get('getAllUsers') // ANTIGO Promise<IUserEntity[]>
+  //@UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   async getAllUsers(@Res() response: Response): Promise<void> {
     // mesmo método do service
     try {
@@ -41,8 +45,10 @@ export class UserController {
     }
   }
 
-  @ApiBearerAuth()
+ 
   @Get('getUserById/:id') //esse cara colocamos ese parametro dentor do @Get porque famos receber por param
+  @ApiBearerAuth()
+  //@UseGuards(AuthGuard())// quem de fato protege as rotas 
   async getUserById(
     @Param('id') userId: string,
     @Res() response: Response,
@@ -82,12 +88,14 @@ export class UserController {
 
   // parch se não existir no bd o patch deve incerir
   //ele atualiza os dados mesmo que seja um campo só
-  @ApiBearerAuth()
+  
   @ApiOperation({
     summary: 'O id vai no Body!',
   })
   @Patch('updateUser') //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
   // o Body diz que o userData tem que ter o id
+  //@UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   async updateUser(
     @Body() userData: PartialUserDto,
     @Res() response: Response,
@@ -103,8 +111,10 @@ export class UserController {
   }
 
   // famos receber por param o id então vamos para a propriedade para dentro do decorator delete
-  @ApiBearerAuth()
+  
   @Delete('deleteUserById/:id') // esse Param vai pegar o 'id'
+ // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   async deleteUserById(@Param('id') userId: string): Promise<String> {
     // promise de string
     try {

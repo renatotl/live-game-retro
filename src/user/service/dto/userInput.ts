@@ -13,14 +13,12 @@ export class UserDto {
   @IsString()
   name: string;
 
-
   @ApiProperty({
     description: 'Email para cadastro',
     example: 'Abcd@1234.com',
   }) //swagger
   @IsEmail()
   email: string;
-
 
   @ApiProperty({
     description: 'Exemplo de senha',
@@ -29,15 +27,12 @@ export class UserDto {
   @IsString()
   password: string;
 
-
   @ApiProperty({
     description: 'Exemplo de CPF',
     example: '1234567891011',
   }) //swagger
   @IsString()
   cpf: string; // cpf só pode ser string / existe CPF que tem o 0 na frente e o banco desconsidera esse cara!
-
-
 
   @ApiProperty() //swagger
   role: boolean;
