@@ -9,7 +9,7 @@ import {
   Delete,
   Res,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { IUserEntity } from '../entities/user.entity';
@@ -26,6 +26,7 @@ export class UserController {
   // o controller manda o service trabalhar/ se o controller não conhecer o service ele não vai funcionar/ controller depende do service/ quando dependo de algo coloco logo no constructor()
   constructor(private serviceUser: UserService) {}
 
+  @ApiBearerAuth()
   // modificando uma class ou um metodo
   @Get('getAllUsers') // ANTIGO Promise<IUserEntity[]>
   async getAllUsers(@Res() response: Response): Promise<void> {
@@ -40,6 +41,7 @@ export class UserController {
     }
   }
 
+  @ApiBearerAuth()
   @Get('getUserById/:id') //esse cara colocamos ese parametro dentor do @Get porque famos receber por param
   async getUserById(
     @Param('id') userId: string,
@@ -80,6 +82,7 @@ export class UserController {
 
   // parch se não existir no bd o patch deve incerir
   //ele atualiza os dados mesmo que seja um campo só
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'O id vai no Body!',
   })
@@ -100,6 +103,7 @@ export class UserController {
   }
 
   // famos receber por param o id então vamos para a propriedade para dentro do decorator delete
+  @ApiBearerAuth()
   @Delete('deleteUserById/:id') // esse Param vai pegar o 'id'
   async deleteUserById(@Param('id') userId: string): Promise<String> {
     // promise de string
