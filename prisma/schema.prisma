@@ -13,7 +13,7 @@ datasource db {
 }
 
 // toda vez que alterarmos o schema precisamos usar os comandos abaixo
-// npx prisma migrate dev
+// npx prisma migrate dev  // salva no banco
 // npx prisma db push
 
 // yarn add @prisma/client/ informando para o prisma as novas funções 
@@ -80,7 +80,7 @@ model Profile {
   //@relation tem 2 campos
   // o fields guarda a chave estrangeira no caso userId
   // references é a referencia que é o id/ esse id é o id da tabela User
-  users   User?   @relation(fields: [userId], references: [id]) // 1 para 1
+  users   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)// se eu deletar o user então deleto também o profile // 1 para 1
   userId String?// esse é o campo que guarda a chave estrangeira
   // referencia com Use
   // as referencias só podem ser com chave única como no caso na model User temos tanto o Id quanto o Cpf como únicos, mas vamos usar o Id
