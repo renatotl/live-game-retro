@@ -10,6 +10,7 @@ import { UserService } from './user/entities/user.service';
 import { ProfileModule } from './profile/profile.module';
 import { ModuleGame } from './game/game.module';
 import { GeneroModule } from './genero/genero.module';
+import { UserModule } from './user/user.modele';
 
 //decorator tendo o  controller e service
 // o controller é o cara que controla as rotas
@@ -27,9 +28,20 @@ import { GeneroModule } from './genero/genero.module';
 
 // o Module é como a nossa FACTORY deposi que criamos o controller e service precisamos montar aqui
 @Module({
+  imports: [DatabaseModule, ProfileModule, ModuleGame, GeneroModule,UserModule], // precisa conhecer o prisma
+
+})
+export class AppModule {}
+// o appModule que junto todo mundo
+
+// as vezes passamos o ConfigModule.forRoot(), dentro no imports porque ele pode não reconhecer o dot.env
+
+
+/* ANTIGO 
+@Module({
   imports: [DatabaseModule, ProfileModule, ModuleGame, GeneroModule], // precisa conhecer o prisma
   controllers: [UserController],
   providers: [UserService, UserRepository],
 })
 export class AppModule {}
-// o appModule que junto todo mundo
+*/

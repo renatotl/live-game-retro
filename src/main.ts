@@ -10,6 +10,8 @@ async function bootstrap() {
   // o NestFactory automaticamente coloca o service dentro do controller
   const app = await NestFactory.create(AppModule, { cors: true }); // habilitando o cors
 
+
+  //app.enableCors(); ou esse ou o { cors: true }
   // validate
   app.useGlobalPipes(new ValidationPipe());
 
@@ -19,6 +21,7 @@ async function bootstrap() {
     .setVersion('1.0.0')
     .addTag('user')
     .addTag('games')
+    .addBearerAuth()// add o campo de auterozação no swagger
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
