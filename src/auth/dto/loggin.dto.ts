@@ -19,4 +19,7 @@ export class LoginDto {
   }) //swagger
   @IsString()
   password: string;
+  // static password: any;
 }
+
+

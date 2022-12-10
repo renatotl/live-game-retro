@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { IUserEntity } from '../entities/user.entity';
 import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
+import { UserDto } from '../service/dto/userInput';
 
 // como vamos usar ele em outro lugar então vamos colocar o Injectable, um exemplo nos o colocamos no module
 @Injectable()
@@ -9,9 +10,11 @@ export class UserRepository {
   // se eu precisar trocar o prisma só trocar o cara do constructor
   constructor(private readonly prisma: PrismaService) {}
 
-  async createUser(user: IUserEntity): Promise<IUserEntity> {
+  async createUser(user: UserDto): Promise<IUserEntity> {
     //para criar precisamos passar parametros
+console.log(user)
     const CreatedUser = await this.prisma.user.create({ data: user });
+    
     return CreatedUser;
   }
 
@@ -38,7 +41,11 @@ export class UserRepository {
   }
 
   async findAllUsers(): Promise<IUserEntity[]> {
-    const allUsers = await this.prisma.user.findMany();
+    const allUsers = await this.prisma.user.findMany({
+      // vai trazer os users com os profiles 
+      include:{profiles: true},
+    });
+
     return allUsers;
   }
 

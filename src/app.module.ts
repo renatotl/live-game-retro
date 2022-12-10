@@ -11,6 +11,7 @@ import { ProfileModule } from './profile/profile.module';
 import { ModuleGame } from './game/game.module';
 import { GeneroModule } from './genero/genero.module';
 import { UserModule } from './user/user.modele';
+import { AuthModule } from './auth/auth.module';
 
 //decorator tendo o  controller e service
 // o controller é o cara que controla as rotas
@@ -28,7 +29,7 @@ import { UserModule } from './user/user.modele';
 
 // o Module é como a nossa FACTORY deposi que criamos o controller e service precisamos montar aqui
 @Module({
-  imports: [DatabaseModule, ProfileModule, ModuleGame, GeneroModule,UserModule], // precisa conhecer o prisma
+  imports: [DatabaseModule, ProfileModule, ModuleGame, GeneroModule,UserModule,AuthModule], // precisa conhecer o prisma
 
 })
 export class AppModule {}

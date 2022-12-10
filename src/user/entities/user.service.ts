@@ -4,6 +4,7 @@ import { randomUUID } from 'node:crypto';
 import { PartialUserDto } from '../service/dto/partialUserInput.Dto';
 import { UserRepository } from './user.repository';
 import { Injectable } from '@nestjs/common';
+import {hashSync} from "bcrypt"
 
 @Injectable()// criando a instancia da class dentro do constructor/ faz uma nova instacia do userRepository/ ele instancia o prismaService
 //o Injectable cria uma instancia da class que está sendo injetada
@@ -17,16 +18,20 @@ export class UserService {
   // para criar um usuário vou precisar receber um user e vamos retornar uma promise da entitade que criamos
   async createUser(user: UserDto): Promise<IUserEntity> {
     // retorna 1 usuário
-
+const encryptedPassword = hashSync(user.password, 10)
     // recebe tudo do user mais um id gerado pelo node
-    const userEntity = { ...user, id: randomUUID() };// createAt: Date.now()// essa função vem do schema.prisma e retorna quando foi criado
+    const userEntity = { ...user, id: randomUUID(), password:encryptedPassword};// createAt: Date.now()// essa função vem do schema.prisma e retorna quando foi criado
     if (user.password.length <= 7) {
       throw new Error('Senha deve ser maior que 7 digitos');
     }
     if (!user.password || !user.name || !user.cpf || !user.email) {
       throw new Error('Prenecha todos os campos. Exemplo: nome, senha, cpf e email.');
     }
+
+
     const createdUser = await this.userRepository.createUser(userEntity);
+
+
     return createdUser;
 
 /* ANTIGO

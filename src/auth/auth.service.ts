@@ -23,15 +23,17 @@ import {
         where: { email },
       });
   
+      console.log(userExists)
       if (!userExists) {
-        throw new NotFoundException('Credenciais inválidas');
+        throw new NotFoundException('Credenciais inválidas 1');
       }
   
       // o compare é um método do bcrypt
       const isHashValid = await bcrypt.compare(password, userExists.password);
+      console.log(isHashValid)
   
       if (!isHashValid) {
-        throw new UnauthorizedException('Credenciais inválidas');
+        throw new UnauthorizedException('Credenciais inválidas 2');
       }
   
       delete userExists.password;// na hora do retorno ele não traz a senha

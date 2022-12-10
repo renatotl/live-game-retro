@@ -13,6 +13,7 @@ import { UseGuards } from '@nestjs/common/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
+import { JwtStrategy } from 'src/auth/jwt.strategy';
 
 import { IUserEntity } from '../entities/user.entity';
 

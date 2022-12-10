@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
 import { PrismaService } from "src/prisma/prisma.service";
+import { CreateProfileDto } from "../dto/create-profile.dto";
 import { PartialProfileDto } from "../dto/update-profile.dto";
 import { IProfileEntity } from "./profile.entity";
 
@@ -10,16 +11,27 @@ import { IProfileEntity } from "./profile.entity";
 export class ProfileRepository {
     constructor(private readonly prisma: PrismaService) {}
 
-    async createProfile(profile: IProfileEntity): Promise<IProfileEntity>{
-     const createProfile = await  this.prisma.profile.create({ data: profile })
+    async createProfile(profile: CreateProfileDto): Promise<IProfileEntity>{
+     const createProfile = await  this.prisma.profile.create({ 
+         
+        data: profile })
      return createProfile
     }
+
+
+/* ANTIGO
+    async createProfile(profile: CreateProfileDto): Promise<IProfileEntity>{ 
+        const createProfile = await  this.prisma.profile.create({ data: profile })
+        return createProfile
+       }
+       */
+
 
     async updateProfile(profile: PartialProfileDto): Promise<IProfileEntity>{
      
         const updatedProfile = await this.prisma.profile.update({
-            where: { id: profile.id },
-            data: profile
+            where: { id: profile.id },// onde
+            data: profile// os dados que quero colocar 
         })
         return updatedProfile
     }
