@@ -1,10 +1,11 @@
-import {BadRequestException, Controller, Get, Post, Body, Patch, Param, Delete, Res, UseGuards } from '@nestjs/common';
+import {BadRequestException, Controller, Get, Post, Body, Patch, Param, Delete, Res, } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { PartialProfileDto } from './dto/update-profile.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { UseGuards } from '@nestjs/common/decorators';
 
 @ApiTags('profile')
 @Controller('profile')
