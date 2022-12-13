@@ -3,7 +3,9 @@ import { GeneroService } from './genero.service';
 import { CreateGeneroDto } from './dto/create-genero.dto';
 import { PartialGeneroDto } from './dto/update-genero.dto';
 import { Response } from 'express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common/decorators';
+import { AuthGuard } from '@nestjs/passport';
 
 
 @ApiTags('genero')
@@ -11,6 +13,8 @@ import { ApiTags } from '@nestjs/swagger';
 export class GeneroController {
   constructor(private readonly generoService: GeneroService) {}
 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Post('createGenero')
   async createGenero(
     @Body() { title }: CreateGeneroDto,
@@ -30,7 +34,8 @@ export class GeneroController {
       throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
-
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Get('getAllGenero')
   async getAllGenero(@Res() response: Response): Promise<void> {
     // mesmo método do service
@@ -43,7 +48,8 @@ export class GeneroController {
       throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
-
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Get('getGeneroById/:id')
   async getGeneroById(
     @Param('id') generoId: string,
@@ -57,7 +63,8 @@ export class GeneroController {
       throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
-
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Patch('updateGenero')
   async updateProfile(
     @Body() generoData: PartialGeneroDto,
@@ -72,7 +79,8 @@ export class GeneroController {
       throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
-
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Delete('deleteGeneroById/:id')
   async deleteGeneroById(@Param('id') generoId: string): Promise<string> {
     // promise de string

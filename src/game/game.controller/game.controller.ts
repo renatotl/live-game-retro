@@ -9,18 +9,22 @@ import {
   Res,
   BadRequestException,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { GameService } from '../entities/games.service';
 import { PartialGameDto } from '../../user/service/dto/partialGameInput.Dto';
 import { GameDto } from 'src/user/service/dto/gameInput';
+import { UseGuards } from '@nestjs/common/decorators';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('games')
 @Controller('games')
 export class GameController {
   constructor(private serviceGame: GameService) {}
 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Get('getAllGames')
   async getAllGames(@Res() response: Response): Promise<void> {
     // mesmo método do service
@@ -34,6 +38,8 @@ export class GameController {
     }
   }
 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Get('getGameById/:id') //esse cara colocamos ese parametro dentor do @Get porque famos receber por param
   async getGameById(
     @Param('id') gameId: string,
@@ -47,7 +53,8 @@ export class GameController {
     }
   }
 
-
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Post('createGame') // o body eu vou querer '{}" desestruturado do tipo UserDto
   async createGame(
     @Body() { title, coverImageUrl, description, year, imdbScore,trailerYouTubeUrl,gameplayYouTubeUrl }: GameDto,
@@ -73,7 +80,8 @@ export class GameController {
       throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
-
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'O id vai no Body!',
   })
@@ -92,7 +100,8 @@ export class GameController {
       throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
-
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Delete('deleteGameById/:id') // esse Param vai pegar o 'id'
   async deleteGameById(@Param('id') gameId: string): Promise<String> {
     // promise de string

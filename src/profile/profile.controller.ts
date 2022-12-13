@@ -1,15 +1,18 @@
-import {BadRequestException, Controller, Get, Post, Body, Patch, Param, Delete, Res } from '@nestjs/common';
+import {BadRequestException, Controller, Get, Post, Body, Patch, Param, Delete, Res, UseGuards } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { PartialProfileDto } from './dto/update-profile.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('profile')
 @Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Post('createProfile')
   async createProfile(
     @Body() { title, imageURL, userId }: CreateProfileDto,
@@ -32,6 +35,8 @@ export class ProfileController {
     }
   }
 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Get('getAllProfile')
   async getAllProfile(@Res() response: Response): Promise<void> {
     // mesmo método do service
@@ -45,6 +50,8 @@ export class ProfileController {
     }
   }
 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Get('getProfileById/:id')
   async getUserById(
     @Param('id') profileId: string,
@@ -59,6 +66,8 @@ export class ProfileController {
     }
   }
 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Patch('updateProfile')
   async updateProfile(
     @Body() profileData: PartialProfileDto,
@@ -74,6 +83,8 @@ export class ProfileController {
     }
   }
 
+  @UseGuards(AuthGuard())// quem de fato protege as rotas 
+  @ApiBearerAuth()
   @Delete('deleteProfileById/:id')
   async deleteProfileById(@Param('id') profileId: string): Promise<string> {
     // promise de string
