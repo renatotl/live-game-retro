@@ -39,7 +39,9 @@ export class ProfileRepository {
     }
 
     async getAllProfile(): Promise<IProfileEntity[]>{
-       const result = await this.prisma.profile.findMany()
+       const result = await this.prisma.profile.findMany({
+        include:{ games: true},
+       })
        return result
     }
 
