@@ -30,7 +30,7 @@ async deleteGame(id: string): Promise<IGamesEntity>{
 
 async getAllGames(): Promise<IGamesEntity[]>{
   return await this.primsa.game.findMany({
-    
+    include:{profiles: true, generos: true},
   })
 
 }

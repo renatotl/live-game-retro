@@ -30,7 +30,10 @@ async deleteGenero(id: string): Promise<IGeneroEntity>{
 }
 
 async getAllGeneros(): Promise<IGeneroEntity[]>{
-  return await this.primsa.genero.findMany()
+  return await this.primsa.genero.findMany({
+    include:{games: true},
+
+  })
 }
 
 async findGeneroById(id:string): Promise<IGeneroEntity>{
