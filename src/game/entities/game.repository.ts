@@ -29,7 +29,10 @@ async deleteGame(id: string): Promise<IGamesEntity>{
 }
 
 async getAllGames(): Promise<IGamesEntity[]>{
-  return await this.primsa.game.findMany()
+  return await this.primsa.game.findMany({
+    
+  })
+
 }
 
 async findGameById(id:string): Promise<IGamesEntity>{

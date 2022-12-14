@@ -12,9 +12,11 @@ export class ProfileRepository {
     constructor(private readonly prisma: PrismaService) {}
 
     async createProfile(profile: CreateProfileDto): Promise<IProfileEntity>{
+        console.log(profile)
      const createProfile = await  this.prisma.profile.create({ 
-         
+        
         data: profile })
+        console.log(profile)
      return createProfile
     }
 
