@@ -12,8 +12,8 @@ import { UseGuards } from '@nestjs/common/decorators';
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
-  @UseGuards(AuthGuard())// quem de fato protege as rotas 
-  @ApiBearerAuth()
+ // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+ // @ApiBearerAuth()
   @Post('createProfile')
   async createProfile(
     @Body() { title, imageURL, userId }: CreateProfileDto,
@@ -36,8 +36,8 @@ export class ProfileController {
     }
   }
 
-  @UseGuards(AuthGuard())// quem de fato protege as rotas 
-  @ApiBearerAuth()
+ // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+ // @ApiBearerAuth()
   @Get('getAllProfile')
   async getAllProfile(@Res() response: Response): Promise<void> {
     // mesmo método do service
