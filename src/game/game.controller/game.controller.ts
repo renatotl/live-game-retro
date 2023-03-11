@@ -23,8 +23,8 @@ import { AuthGuard } from '@nestjs/passport';
 export class GameController {
   constructor(private serviceGame: GameService) {}
 
-  @UseGuards(AuthGuard())// quem de fato protege as rotas 
-  @ApiBearerAuth()
+ // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+ // @ApiBearerAuth()
   @Get('getAllGames')
   async getAllGames(@Res() response: Response): Promise<void> {
     // mesmo método do service
@@ -53,8 +53,8 @@ export class GameController {
     }
   }
 
-  @UseGuards(AuthGuard())// quem de fato protege as rotas 
-  @ApiBearerAuth()
+ // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+ // @ApiBearerAuth()
   @Post('createGame') // o body eu vou querer '{}" desestruturado do tipo UserDto
   async createGame(
     @Body() { title, coverImageUrl, description, year, imdbScore,trailerYouTubeUrl,gameplayYouTubeUrl }: GameDto,
