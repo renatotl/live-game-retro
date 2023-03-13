@@ -100,8 +100,8 @@ export class GameController {
       throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
-  @UseGuards(AuthGuard())// quem de fato protege as rotas 
-  @ApiBearerAuth()
+ // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+ // @ApiBearerAuth()
   @Delete('deleteGameById/:id') // esse Param vai pegar o 'id'
   async deleteGameById(@Param('id') gameId: string): Promise<String> {
     // promise de string

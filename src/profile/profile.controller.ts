@@ -84,8 +84,8 @@ export class ProfileController {
     }
   }
 
-  @UseGuards(AuthGuard())// quem de fato protege as rotas 
-  @ApiBearerAuth()
+ // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+ // @ApiBearerAuth()
   @Delete('deleteProfileById/:id')
   async deleteProfileById(@Param('id') profileId: string): Promise<string> {
     // promise de string

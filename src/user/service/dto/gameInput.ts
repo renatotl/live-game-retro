@@ -2,6 +2,8 @@ import { ApiProperty } from '@nestjs/swagger'; // yarn add @nestjs/swagger
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class GameDto {
+
+
   @ApiProperty() //swagger
   @IsNotEmpty()
   @IsString()
