@@ -17,4 +17,7 @@ export class CreateProfileDto {
     @ApiProperty()
     @IsUUID()// não precisa do isString
     userId: string// recebe o dado do relacionamento ID/ relacionamento com a tabela User
+   
+    
+ 
 }

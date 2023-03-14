@@ -26,6 +26,7 @@ export class ProfileController {
         title,
         imageURL,
         userId
+        
       });
 
       response.status(201).send(result);
