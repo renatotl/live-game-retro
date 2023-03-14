@@ -85,7 +85,7 @@ export class GameController {
   @ApiOperation({
     summary: 'O id vai no Body!',
   })
-  @Patch('updateUser') //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
+  @Patch('updateGame') //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
   // o Body diz que o userData tem que ter o id
   async updateGame(
     @Body() gameData: PartialGameDto,
