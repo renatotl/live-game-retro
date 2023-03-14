@@ -67,8 +67,8 @@ export class ProfileController {
     }
   }
 
-  @UseGuards(AuthGuard())// quem de fato protege as rotas 
-  @ApiBearerAuth()
+ // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+ // @ApiBearerAuth()
   @Patch('updateProfile')
   async updateProfile(
     @Body() profileData: PartialProfileDto,
