@@ -80,8 +80,8 @@ export class GameController {
       throw new BadRequestException(err.message); // mensgem vem do service
     }
   }
-  @UseGuards(AuthGuard())// quem de fato protege as rotas 
-  @ApiBearerAuth()
+ // @UseGuards(AuthGuard())// quem de fato protege as rotas 
+ // @ApiBearerAuth()
   @ApiOperation({
     summary: 'O id vai no Body!',
   })
