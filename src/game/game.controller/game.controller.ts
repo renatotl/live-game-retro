@@ -82,11 +82,11 @@ export class GameController {
   }
  // @UseGuards(AuthGuard())// quem de fato protege as rotas 
  // @ApiBearerAuth()
-  @ApiOperation({
-    summary: 'O id vai no Body!',
-  })
-  @Patch('updateGame') //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
-  // o Body diz que o userData tem que ter o id
+
+ @ApiOperation({
+  summary: 'O id vai no Body!',
+})                      //Body/ usado p PartialUserDto porque não precisamos enviar todos os campospara atualizar
+   @Patch('updateGame')// o Body diz que o userData tem que ter o id
   async updateGame(
     @Body() gameData: PartialGameDto,
     @Res() response: Response,

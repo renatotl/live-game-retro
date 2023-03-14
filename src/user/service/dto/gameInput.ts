@@ -41,8 +41,5 @@ export class GameDto {
 
 
 
-  // campo de relacionamento tabela Genero
-  // @ApiProperty() //swagger
-  // @IsUUID()
-  // generoId: string
+ 
 }
